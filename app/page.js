@@ -14,6 +14,11 @@ const questions = [
   { q: "Before this conversation, how much did you know about this industry?", opts: ["A lot", "A little", "Almost nothing", "Absolutely nothing"], scores: [0, 1, 2, 3], reveal: "The less you knew, the more upside you have. You're discovering something most people never will — and now you know exactly where to start." },
 ];
 
+const PRIMARY = "#1B3A2D";
+const ACCENT = "#D4A853";
+const BG = "#F2EDE4";
+const SAGE = "#7A9E87";
+
 export default function Home() {
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -23,110 +28,100 @@ export default function Home() {
   const max = questions.reduce((s, q) => s + Math.max(...q.scores), 0);
   const pct = Math.round((total / max) * 100);
 
-  function select(i) {
-    setAnswers({ ...answers, [current]: i });
-  }
-
-  function goNext() {
-    if (current < questions.length - 1) setCurrent(current + 1);
-    else setDone(true);
-  }
-
-  function goBack() {
-    if (current > 0) setCurrent(current - 1);
-  }
+  function select(i) { setAnswers({ ...answers, [current]: i }); }
+  function goNext() { if (current < questions.length - 1) setCurrent(current + 1); else setDone(true); }
+  function goBack() { if (current > 0) setCurrent(current - 1); }
 
   const letters = ["A", "B", "C", "D"];
 
   if (done) {
     return (
-      <main style={styles.wrap}>
-        <div style={styles.resultHero}>
-          <div style={styles.score}>{pct}%</div>
-          <div style={styles.scoreLabel}>knowledge score</div>
-          <div style={styles.resultHeadline}>You could be making extra money faster than you thought.</div>
-          <div style={styles.resultSub}>You know more than you think — and now you know this industry is real. A 15-minute call with Larry will show you exactly how to turn that curiosity into income.</div>
+      <main style={{ ...s.wrap, background: BG }}>
+        <div style={s.resultHero}>
+          <div style={s.score}>{pct}%</div>
+          <div style={s.scoreLabel}>knowledge score</div>
+          <div style={s.resultHeadline}>You could be making extra money faster than you thought.</div>
+          <div style={s.resultSub}>You know more than you think — and now you know this industry is real. A 15-minute call with Larry will show you exactly how to turn that curiosity into income.</div>
         </div>
-        <div style={styles.reveals}>
+        <div style={s.reveals}>
           {questions.map((q, i) => (
-            <div key={i} style={styles.revealItem}>
-              <div style={styles.revealDot} />
-              <div style={styles.revealText}>{q.reveal}</div>
+            <div key={i} style={s.revealItem}>
+              <div style={s.revealDot} />
+              <div style={s.revealText}>{q.reveal}</div>
             </div>
           ))}
         </div>
-        <div style={styles.ctaCard}>
-          <div style={styles.ctaTitle}>Your next step is clear</div>
-          <div style={styles.ctaSub}>Book a free 15-minute call with Larry to get a roadmap built around your exact situation.</div>
-          <a href="https://api.leadconnectorhq.com/widget/bookings/larry-intake-call" style={styles.ctaBtn}>Book your free call</a>
+        <div style={s.ctaCard}>
+          <div style={s.ctaTitle}>Your next step is clear</div>
+          <div style={s.ctaSub}>Book a free 15-minute call with Larry to get a roadmap built around your exact situation.</div>
+          <a href="https://api.leadconnectorhq.com/widget/bookings/larry-intake-call" style={s.ctaBtn}>Book your free call</a>
         </div>
       </main>
     );
   }
 
   return (
-    <main style={styles.wrap}>
-      <div style={styles.hero}>
-        <div style={styles.heroTag}>60-second quiz</div>
-        <h1 style={styles.heroTitle}>How much do you <span style={styles.heroAccent}>actually know?</span></h1>
-        <p style={styles.heroSub}>Most people scrolling right now have no idea this career exists. Answer 10 quick questions and find out if you're sitting on an opportunity you've been sleeping on.</p>
+    <main style={{ ...s.wrap, background: BG }}>
+      <div style={s.hero}>
+        <div style={s.heroTag}>60-second quiz</div>
+        <h1 style={s.heroTitle}>How much do you <span style={{ color: ACCENT }}>actually know?</span></h1>
+        <p style={s.heroSub}>Most people scrolling right now have no idea this career exists. Answer 10 quick questions and find out if you're sitting on an opportunity you've been sleeping on.</p>
       </div>
-      <div style={styles.progressBar}>
-        <div style={{ ...styles.progressFill, width: `${((current + 1) / questions.length) * 100}%` }} />
+      <div style={s.progressBar}>
+        <div style={{ ...s.progressFill, width: `${((current + 1) / questions.length) * 100}%` }} />
       </div>
-      <div style={styles.qLabel}>Question {current + 1} of {questions.length}</div>
-      <div style={styles.qText}>{questions[current].q}</div>
-      <div style={styles.options}>
+      <div style={s.qLabel}>Question {current + 1} of {questions.length}</div>
+      <div style={s.qText}>{questions[current].q}</div>
+      <div style={s.options}>
         {questions[current].opts.map((opt, i) => (
-          <div key={i} style={{ ...styles.opt, ...(answers[current] === i ? styles.optSelected : {}) }} onClick={() => select(i)}>
-            <div style={{ ...styles.optMarker, ...(answers[current] === i ? styles.optMarkerSelected : {}) }}>{letters[i]}</div>
-            <div style={styles.optText}>{opt}</div>
+          <div key={i} style={{ ...s.opt, ...(answers[current] === i ? s.optSelected : {}) }} onClick={() => select(i)}>
+            <div style={{ ...s.optMarker, ...(answers[current] === i ? s.optMarkerSelected : {}) }}>{letters[i]}</div>
+            <div style={s.optText}>{opt}</div>
           </div>
         ))}
       </div>
-      <div style={styles.navRow}>
-        {current > 0 && <button style={styles.btnBack} onClick={goBack}>Back</button>}
-        <button style={{ ...styles.btnNext, opacity: answers[current] === undefined ? 0.35 : 1 }} disabled={answers[current] === undefined} onClick={goNext}>
+      <div style={s.navRow}>
+        {current > 0 && <button style={s.btnBack} onClick={goBack}>Back</button>}
+        <button style={{ ...s.btnNext, opacity: answers[current] === undefined ? 0.35 : 1 }} disabled={answers[current] === undefined} onClick={goNext}>
           {current === questions.length - 1 ? "See my results" : "Continue"}
         </button>
-        <span style={styles.qCount}>{questions.length - current - 1} left</span>
+        <span style={s.qCount}>{questions.length - current - 1} left</span>
       </div>
     </main>
   );
 }
 
-const styles = {
-  wrap: { maxWidth: 640, margin: "0 auto", padding: "1.5rem 1rem", fontFamily: "system-ui, sans-serif" },
-  hero: { background: "#0E1B33", borderRadius: 16, padding: "2rem 1.5rem", marginBottom: "1.25rem" },
-  heroTag: { display: "inline-block", background: "#C9A84C", color: "#0E1B33", fontSize: 11, fontWeight: 500, letterSpacing: "1.5px", textTransform: "uppercase", padding: "4px 10px", borderRadius: 4, marginBottom: 12 },
-  heroTitle: { fontFamily: "Georgia, serif", fontSize: "2rem", color: "#F7F3EC", lineHeight: 1.1, marginBottom: 12 },
-  heroAccent: { color: "#C9A84C" },
-  heroSub: { fontSize: 13, color: "rgba(247,243,236,0.7)", lineHeight: 1.6, margin: 0 },
-  progressBar: { height: 4, background: "#e5e7eb", borderRadius: 2, marginBottom: "1.25rem", overflow: "hidden" },
-  progressFill: { height: "100%", background: "#C9A84C", borderRadius: 2, transition: "width 0.4s ease" },
-  qLabel: { fontSize: 11, fontWeight: 500, letterSpacing: "1.2px", textTransform: "uppercase", color: "#C9A84C", marginBottom: 6 },
-  qText: { fontSize: "1rem", fontWeight: 500, marginBottom: "1rem", lineHeight: 1.4 },
+const s = {
+  wrap: { maxWidth: 640, margin: "0 auto", padding: "1.5rem 1rem", fontFamily: "Georgia, serif", minHeight: "100vh" },
+  hero: { background: PRIMARY, borderRadius: 16, padding: "2rem 1.5rem", marginBottom: "1.25rem" },
+  heroTag: { display: "inline-block", background: ACCENT, color: PRIMARY, fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", padding: "4px 10px", borderRadius: 4, marginBottom: 12, fontFamily: "system-ui, sans-serif" },
+  heroTitle: { fontFamily: "Georgia, serif", fontSize: "2rem", color: "#F2EDE4", lineHeight: 1.1, marginBottom: 12 },
+  heroSub: { fontSize: 13, color: "rgba(242,237,228,0.75)", lineHeight: 1.6, margin: 0, fontFamily: "system-ui, sans-serif" },
+  progressBar: { height: 4, background: "#C8C0B4", borderRadius: 2, marginBottom: "1.25rem", overflow: "hidden" },
+  progressFill: { height: "100%", background: ACCENT, borderRadius: 2, transition: "width 0.4s ease" },
+  qLabel: { fontSize: 11, fontWeight: 600, letterSpacing: "1.2px", textTransform: "uppercase", color: ACCENT, marginBottom: 6, fontFamily: "system-ui, sans-serif" },
+  qText: { fontSize: "1rem", fontWeight: 600, marginBottom: "1rem", lineHeight: 1.4, color: PRIMARY, fontFamily: "Georgia, serif" },
   options: { display: "flex", flexDirection: "column", gap: 8, marginBottom: "1.25rem" },
-  opt: { display: "flex", alignItems: "center", gap: 12, padding: "11px 14px", border: "1px solid #e5e7eb", borderRadius: 10, cursor: "pointer", background: "#fff" },
-  optSelected: { borderColor: "#C9A84C", background: "#fdf8ee" },
-  optMarker: { width: 22, height: 22, borderRadius: "50%", border: "1.5px solid #d1d5db", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 500, flexShrink: 0, color: "#6b7280" },
-  optMarkerSelected: { background: "#C9A84C", borderColor: "#C9A84C", color: "#0E1B33" },
-  optText: { fontSize: 13 },
+  opt: { display: "flex", alignItems: "center", gap: 12, padding: "11px 14px", border: "1px solid #C8C0B4", borderRadius: 10, cursor: "pointer", background: "#fff", fontFamily: "system-ui, sans-serif" },
+  optSelected: { borderColor: ACCENT, background: "#FBF5E8" },
+  optMarker: { width: 22, height: 22, borderRadius: "50%", border: "1.5px solid #C8C0B4", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 600, flexShrink: 0, color: "#888" },
+  optMarkerSelected: { background: ACCENT, borderColor: ACCENT, color: PRIMARY },
+  optText: { fontSize: 13, color: "#2C2C2A" },
   navRow: { display: "flex", gap: 10, alignItems: "center" },
-  btnNext: { background: "#C9A84C", color: "#0E1B33", border: "none", padding: "11px 26px", borderRadius: 8, fontSize: 13, fontWeight: 500, cursor: "pointer" },
-  btnBack: { background: "transparent", color: "#6b7280", border: "1px solid #e5e7eb", padding: "11px 18px", borderRadius: 8, fontSize: 13, cursor: "pointer" },
-  qCount: { fontSize: 12, color: "#9ca3af", marginLeft: "auto" },
-  resultHero: { background: "#0E1B33", borderRadius: 16, padding: "2rem 1.5rem", marginBottom: "1.25rem", textAlign: "center" },
-  score: { fontFamily: "Georgia, serif", fontSize: "4.5rem", color: "#C9A84C", lineHeight: 1 },
-  scoreLabel: { fontSize: 12, color: "rgba(247,243,236,0.6)", letterSpacing: "1px", textTransform: "uppercase", marginTop: 4 },
-  resultHeadline: { fontFamily: "Georgia, serif", fontSize: "1.4rem", color: "#F7F3EC", marginTop: 14, lineHeight: 1.2 },
-  resultSub: { fontSize: 13, color: "rgba(247,243,236,0.7)", lineHeight: 1.6, marginTop: 8 },
+  btnNext: { background: ACCENT, color: PRIMARY, border: "none", padding: "11px 26px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "system-ui, sans-serif" },
+  btnBack: { background: "transparent", color: "#888", border: "1px solid #C8C0B4", padding: "11px 18px", borderRadius: 8, fontSize: 13, cursor: "pointer", fontFamily: "system-ui, sans-serif" },
+  qCount: { fontSize: 12, color: "#888", marginLeft: "auto", fontFamily: "system-ui, sans-serif" },
+  resultHero: { background: PRIMARY, borderRadius: 16, padding: "2rem 1.5rem", marginBottom: "1.25rem", textAlign: "center" },
+  score: { fontFamily: "Georgia, serif", fontSize: "4.5rem", color: ACCENT, lineHeight: 1 },
+  scoreLabel: { fontSize: 12, color: "rgba(242,237,228,0.6)", letterSpacing: "1px", textTransform: "uppercase", marginTop: 4, fontFamily: "system-ui, sans-serif" },
+  resultHeadline: { fontFamily: "Georgia, serif", fontSize: "1.4rem", color: "#F2EDE4", marginTop: 14, lineHeight: 1.3 },
+  resultSub: { fontSize: 13, color: "rgba(242,237,228,0.75)", lineHeight: 1.6, marginTop: 8, fontFamily: "system-ui, sans-serif" },
   reveals: { display: "flex", flexDirection: "column", gap: 8, marginBottom: "1.25rem" },
-  revealItem: { display: "flex", gap: 12, alignItems: "flex-start", padding: "11px 14px", borderRadius: 10, border: "1px solid #e5e7eb", background: "#fff" },
-  revealDot: { width: 8, height: 8, borderRadius: "50%", flexShrink: 0, marginTop: 5, background: "#BA7517" },
-  revealText: { fontSize: 13, color: "#4b5563", lineHeight: 1.5 },
-  ctaCard: { background: "#C9A84C", borderRadius: 12, padding: "1.5rem", textAlign: "center" },
-  ctaTitle: { fontFamily: "Georgia, serif", fontSize: "1.4rem", color: "#0E1B33", marginBottom: 6 },
-  ctaSub: { fontSize: 13, color: "rgba(14,27,51,0.75)", marginBottom: "1rem", lineHeight: 1.5 },
-  ctaBtn: { display: "inline-block", background: "#0E1B33", color: "#F7F3EC", padding: "12px 30px", borderRadius: 8, fontSize: 13, fontWeight: 500, textDecoration: "none" },
+  revealItem: { display: "flex", gap: 12, alignItems: "flex-start", padding: "11px 14px", borderRadius: 10, border: "1px solid #C8C0B4", background: "#fff" },
+  revealDot: { width: 8, height: 8, borderRadius: "50%", flexShrink: 0, marginTop: 5, background: SAGE },
+  revealText: { fontSize: 13, color: "#2C2C2A", lineHeight: 1.5, fontFamily: "system-ui, sans-serif" },
+  ctaCard: { background: PRIMARY, borderRadius: 12, padding: "1.5rem", textAlign: "center" },
+  ctaTitle: { fontFamily: "Georgia, serif", fontSize: "1.4rem", color: ACCENT, marginBottom: 6 },
+  ctaSub: { fontSize: 13, color: "rgba(242,237,228,0.75)", marginBottom: "1rem", lineHeight: 1.5, fontFamily: "system-ui, sans-serif" },
+  ctaBtn: { display: "inline-block", background: ACCENT, color: PRIMARY, padding: "12px 30px", borderRadius: 8, fontSize: 13, fontWeight: 700, textDecoration: "none", fontFamily: "system-ui, sans-serif" },
 };
