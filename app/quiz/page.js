@@ -54,7 +54,7 @@ export default function Home() {
         <div style={s.ctaCard}>
           <div style={s.ctaTitle}>Your next step is clear</div>
           <div style={s.ctaSub}>Book a free 15-minute call with Larry to get a roadmap built around your exact situation.</div>
-          <a href="https://api.leadconnectorhq.com/widget/bookings/larry-intake-call" style={s.ctaBtn}>Book your free call</a>
+          <a href="https://cat.jsimonesolutions.com/opt-in" style={s.ctaBtn}>Book your free call</a>
         </div>
       </main>
     );
