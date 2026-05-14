@@ -43,7 +43,7 @@ export default function Home() {
       <div style={{ background: PRIMARY, padding: "3rem 1.5rem" }}>
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: ACCENT, marginBottom: 8, textAlign: "center" }}>Why people are making the switch</div>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "1.5rem", color: "#F2EDE4", textAlign: "center", marginBottom: 2rem, lineHeight: 1.3 }}>Three reasons this career keeps growing</h2>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "1.5rem", color: "#F2EDE4", textAlign: "center", marginBottom: "2rem", lineHeight: 1.3 }}>Three reasons this career keeps growing</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginTop: "1.5rem" }}>
             {[
               { icon: "💰", title: "High income potential", body: "Experienced adjusters regularly clear $5K–$10K per week during peak CAT season." },
